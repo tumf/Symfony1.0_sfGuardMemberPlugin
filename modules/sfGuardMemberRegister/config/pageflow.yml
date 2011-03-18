@@ -1,0 +1,31 @@
+---
+ttl: 21600
+firstState: ProcessInitialize
+lastState: ~
+state:
+  ProcessInitialize:
+    transition:
+      onSuccess: ProcessSetup
+  ProcessSetup:
+    transition:
+      onSuccess: DisplayForm
+  DisplayForm:
+    transition:
+      doInput: ProcessValidate
+  ProcessValidate:
+    entry:
+      - acceptRequests:
+        params: [username, nickname, password, password_c, birth_y, birth_m, birth_d, optin, mobile_email, gender, bloodtype, zipcode1, zipcode2]
+    transition:
+      onSuccess: DisplayConfirm
+      onError:   DisplayForm
+  DisplayConfirm:
+    transition:
+      doInput:   ProcessValidate
+      doConfirm: ProcessSubmit
+      doCancel:  ProcessSetup
+  ProcessSubmit:
+    transition:
+      onSuccess: DisplayResult
+  DisplayResult:
+

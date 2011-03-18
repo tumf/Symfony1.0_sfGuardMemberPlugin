@@ -1,0 +1,56 @@
+---
+ttl: 21600
+firstState: ProcessInitialize
+lastState: ~
+state:
+  ProcessInitialize:
+    transition:
+      onSuccess: DisplayRequestAuth
+  #
+  # require authentication to proceed
+  #
+  DisplayRequestAuth:
+    transition:
+      doInput: ProcessValidateAuthRequest
+  ProcessValidateAuthRequest:
+    entry:
+      - acceptRequests:
+        params: [auth_password]
+    transition:
+      onSuccess: ProcessSetup
+      onError:   DisplayRequestAuth
+  #
+  # editing
+  #
+  ProcessSetup:
+    transition:
+      onSuccess: DisplayForm
+
+  DisplayForm:
+    transition:
+      doInput: ProcessValidate
+
+  ProcessValidate:
+    entry:
+      - acceptRequests:
+        params: [nickname, email, password, password_c, birth_y, birth_m, birth_d, optin, mobile_email, gender, bloodtype, zipcode1, zipcode2]
+    transition:
+      onSuccess: DisplayConfirm
+      onError:   DisplayForm
+
+  DisplayConfirm:
+    transition:
+      doInput:   ProcessValidate
+      doConfirm: ProcessSubmit
+      doCancel:  ProcessSetup
+
+  DisplayResult:
+    transition:
+      doCancel:  ProcessSetup
+    transition:
+      onSuccess: DisplayConfirm
+      onError:   DisplayForm
+
+  ProcessSubmit:
+    transition:
+      onSuccess: DisplayResult

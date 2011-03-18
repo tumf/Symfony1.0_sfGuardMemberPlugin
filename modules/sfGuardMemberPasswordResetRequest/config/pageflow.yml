@@ -1,0 +1,22 @@
+---
+ttl: 1800
+firstState: ProcessInitialize
+lastState: ~
+state:
+  ProcessInitialize:
+    transition:
+      onSuccess: DisplayForm
+  DisplayForm:
+    transition:
+      doInput: ProcessValidate
+  ProcessValidate:
+    entry:
+      - acceptRequests:
+        params: [username, birth_y, birth_m, birth_d]
+    transition:
+      onSuccess: ProcessSubmit
+      onError:   DisplayForm
+  ProcessSubmit:
+    transition:
+      onSuccess: DisplayResult
+  DisplayResult:

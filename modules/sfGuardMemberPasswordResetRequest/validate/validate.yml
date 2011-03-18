@@ -1,0 +1,39 @@
+---
+methods:
+  post: [username, birth_y, birth_m, birth_d]
+
+names:
+  username:
+    required: true
+    required_msg: ID を入力してください。
+    validators: [valid_username]
+  birth_y:
+    required: true
+    required_msg: 生年月日（年）を選択してください。
+  birth_m:
+    required: true
+    required_msg: 生年月日（月）を選択してください。
+  birth_d:
+    required: true
+    required_msg: 生年月日（日）を選択してください。
+    validators: [year_within]
+
+
+valid_username:
+  class:          mbStringValidator
+  param:
+    min:        '2'
+    min_error:  '2文字以上で入力してください。'
+    max:        '128'
+    max_error:  '128文字以内で入力してください。'
+    rules:
+      - if_match:   /[^A-Za-z0-9\_\-\.]/
+        then_error: A-Za-z0-9_-. 以外の文字はお使い頂けません。
+
+year_within:
+  class: dateRangeValidator
+  param:
+    year: birth_y
+    month: birth_m
+    day: birth_d
+    date_error: 生年月日を選択してください。

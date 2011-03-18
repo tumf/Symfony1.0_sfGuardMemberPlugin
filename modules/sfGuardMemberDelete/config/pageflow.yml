@@ -1,0 +1,42 @@
+---
+ttl: 1800
+firstState: ProcessInitialize
+lastState: ~
+state:
+  ProcessInitialize:
+    transition:
+      onSuccess: DisplayRequestAuth
+  #
+  # require authentication to proceed
+  #
+  DisplayRequestAuth:
+    transition:
+      doInput: ProcessValidateAuthRequest
+  ProcessValidateAuthRequest:
+    entry:
+      - acceptRequests:
+        params: [auth_password]
+    transition:
+      onSuccess: DisplayForm
+      onError:   DisplayRequestAuth
+  #
+  # deleting
+  #
+  DisplayForm:
+    transition:
+      doInput: ProcessValidate
+  ProcessValidate:
+    entry:
+      - acceptRequests:
+        params: [reason, reason_text]
+    transition:
+      onSuccess: DisplayConfirm
+      onError:   DisplayForm
+  DisplayConfirm:
+    transition:
+      doSubmit:   ProcessSubmit
+      doCancel:   ProcessCancel
+  ProcessSubmit:
+    transition:
+      onSuccess: DisplayResult
+  DisplayResult:

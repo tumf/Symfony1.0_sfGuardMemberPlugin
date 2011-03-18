@@ -1,0 +1,128 @@
+---
+methods:
+  post: [nickname, email, password, password_c, birth_y, birth_m, birth_d, optin, mobile_email, bloodtype, zipcode1, zipcode2, gender]
+
+names:
+  nickname:
+    required: true
+    required_msg: ニックネームを入力してください。
+    validators: [valid_nickname]
+  email:
+    required: false
+    validators: [valid_email, unique_address]
+  password:
+    required: false
+    validators: [password, password_match]
+  password_c:
+    required: false
+  birth_y:
+    required: true
+    required_msg: 生年月日（年）を選択してください。
+  birth_m:
+    required: true
+    required_msg: 生年月日（月）を選択してください。
+  birth_d:
+    required: true
+    required_msg: 生年月日（日）を選択してください。
+    validators: [year_within]
+  optin:
+    required: false
+    validators: [optin]
+  gender:
+    required: true
+    required_msg: "性別を選択してください。"
+  bloodtype:
+    required: true
+    required_msg: "血液型を選択してください。"
+    validators: [bloodtype]
+  mobile_email:
+    required: false
+    validators: [mobile]
+  zipcode1:
+    required: true
+    required_msg: "郵便番号を入力してください。"
+    validators: [zipcode1]
+  zipcode2:
+    required: true
+    required_msg: "郵便番号を入力してください。"
+    validators: [zipcode2]
+
+
+zipcode1:
+  class:   mbStringValidator
+  param:
+    rules:
+      - if_not_match: /^\d{3}$/
+        then_error: "郵便番号を入力してください。"
+
+zipcode2:
+  class:   mbStringValidator
+  param:
+    rules:
+      - if_not_match: /^\d{4}$/
+        then_error: "郵便番号を入力してください。"
+
+optin:
+  class:   mbStringValidator
+  param:
+    rules:
+      - if_not_match: /^1$/
+        then_error: "メール受け取りの可否を選択してください。"
+
+bloodtype:
+  class:   mbStringValidator
+  param:
+    rules:
+      - if_not_match: /^(A|B|O|AB)$/
+        then_error: "血液型を選択してください。"
+
+mobile:
+  class:   sfMobileEmailValidator
+  param:
+    expect:     'valid'
+    error_msg:  携帯以外のメールアドレスはご指定頂けません。
+
+valid_nickname:
+  class:          mbStringValidator
+  param:
+    min:        '2'
+    min_error:  '2文字以上で入力してください。'
+    max:        '32'
+    max_error:  '32文字以内で入力してください。'
+    trim_filter: true
+
+unique_address:
+  class: uniqueWithoutExceptionValidator
+  param:
+    class: sfGuardUserProfile
+    column: email
+    unique_error:  ご入力のメールアドレスは既に登録済みです。
+    exception:
+      value_of: getEmail
+
+valid_email:
+  class: sfEmailValidator
+  param:
+    email_error: メールアドレスとして扱えませんでした。入力内容をご確認ください。
+
+password:
+  class:           mbStringValidator
+  param:
+    'min':         "4"
+    'min_error':   '4文字以上で入力してください'
+    'max':         "128"
+    'max_error':   '128文字以内で入力してください'    
+
+password_match:
+  class:            sfCompareValidator
+  param:
+    check:          password_c
+    compare_error:  パスワードと確認用の入力が一致しませんでした。もう一度入力をお願いいたします。
+
+year_within:
+  class: dateRangeValidator
+  param:
+    year: birth_y
+    month: birth_m
+    day: birth_d
+    date_error: 生年月日を選択してください。

@@ -1,0 +1,26 @@
+---
+ttl: 1800
+firstState: ProcessInitialize
+lastState: ~
+state:
+  ProcessInitialize:
+    transition:
+      onSuccess: ProcessSetup
+  ProcessSetup:
+    transition:
+      onSuccess: DisplayForm
+  DisplayForm:
+    transition:
+      doInput: ProcessValidate
+  ProcessValidate:
+    entry:
+      - acceptRequests:
+        params: [email]
+    transition:
+      onSuccess: ProcessSubmit
+      onError:   DisplayForm
+  ProcessSubmit:
+    transition:
+      onSuccess: DisplayResult
+  DisplayResult:
+

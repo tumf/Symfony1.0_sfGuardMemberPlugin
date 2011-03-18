@@ -1,0 +1,16 @@
+
+
+* sfGuardPlugin
+> svn co http://svn.symfony-project.com/plugins/sfGuardPlugin/branches/1.0 plugins/sfGuardPlugin
+
+* sfPageFlowPlugin
+> svn co http://svn.tracfort.jp/svn/dino-symfony/plugins/sfPageFlowPlugin
+
+* jpEmailPlugin
+> svn co http://svn.tracfort.jp/svn/dino-symfony/plugins/jpEmailPlugin
+
+* jpMailPlugin
+> svn co http://svn.tracfort.jp/svn/dino-symfony/plugins/jpMailPlugin
+
+* sfCryptoCaptchaPlugin
+> svn co http://svn.tracfort.jp/svn/dino-symfony/plugins/sfCryptoCaptchaPlugin

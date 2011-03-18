@@ -1,0 +1,24 @@
+---
+methods:
+  post: [password, password_c]
+
+names:
+  password:
+    required: true
+    validators: [password, password_match]
+  password_c:
+    required: true
+
+password:
+  class:           mbStringValidator
+  param:
+    'min':         "4"
+    'min_error':   '4文字以上で入力してください'
+    'max':         "128"
+    'max_error':   '128文字以内で入力してください'    
+
+password_match:
+  class:            sfCompareValidator
+  param:
+    check:          password_c
+    compare_error:  パスワードと確認用の入力が一致しませんでした。もう一度入力をお願いいたします。

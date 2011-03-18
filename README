@@ -1,0 +1,102 @@
+（書いたけどメンテしてません、、）
+
+= sfGuardMemberPlugin =
+
+== Install ==
+
+Checkout from Subversion repository as follows:
+
+{{{
+cd plugins
+svn co http://svn.tracfort.jp/svn/dino-symfony/plugins/sfGuardMemberPlugin
+cd - && symfony cc
+}}}
+
+Or, download or install attached file.
+
+== Usage ==
+
+
+=== プラグインのメール送信実装を利用する場合 ===
+
+app_sf_guard_member_plugin_routes_register を有効にしてください。
+
+ローカルアプリ側に（TODO: Base.. を継承したモジュールを用意する）
+
+（* jpMail プラグインで必要となる sfController#getPresentation が plugin 以下のディレクトリを参照しないため）
+
+
+=== プラグインのメール送信実装を利用しない場合 ===
+
+app_sf_guard_member_plugin_routes_register を無効にしてください。
+
+プラグインの routing.yml を参考に routing.yml を適宜追加してください。
+
+
+=== URL 設計の方針 ===
+
+方針
+ * module:
+   * 振る舞いに基づいたネーミング、切り分けを行う
+   * 場合により、接頭辞に対象となるリソース名を持つ（例: accountRegister）
+   * フローがある場合はフローとモジュールを 1:1 で設計する
+ * URL は /resource/behavior として切る
+
+付記
+ * module を簡潔に記すため（リソース名、名詞にするとメソッドが増大する）
+ * 振る舞いは汎用的な名前になりやすい（例: edit）ため、ネームスペースとしてリソース名を用いる
+   * URL: /account/edit
+   * module: accountEdit
+ * 次のデメリットには目をつぶる
+   * URL が長くなる
+   * モジュール数が増える
+
+=== 再登録に於ける項目情報の扱い ===
+
+ * mailaddress: 再利用可能
+ * username: 再利用不可
+ * nickname: 再利用可能
+
+=== URL: example ===
+
+Mail address Confirmation
+---
+/account/mail/register
+/account/mail/register/send
+/account/mail/register/compete
+
+
+Account Creation
+---
+/account/register
+/account/register/confirm
+/account/register/complete
+
+
+Account Editing
+---
+/account/edit/auth
+/account/edit/auth/complete
+/account/edit
+/account/edit/confirm
+/account/edit/complete
+
+
+Removing
+---
+/account/delete
+/account/delete/confirm
+/account/delete/complete
+
+
+Reminder
+---
+/account/id/remind
+/account/id/remind/complete
+/account/password/remind
+/account/password/remind/complete
+
+Terms of Service
+---
+/account/tos
+

@@ -1,0 +1,15 @@
+---
+all:
+  sf_guard_member:
+    # profile:
+    #   use_optin:     true
+    #   use_mobile_email: true
+    #   use_bloodtype: true
+    #   use_zipcode:   true
+    withdrawal_reasons: 
+      use_options:
+        1: インターネットを使わなくなったから
+        2: 欲しい情報が無くなったから
+        3: 必要性がなくなったから
+        4: その他
+

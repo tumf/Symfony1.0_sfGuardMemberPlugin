@@ -1,0 +1,16 @@
+----
+propel:
+  member:
+    id:
+    email:
+      type: varchar(128)
+      required: true
+      index: true
+    nickname:
+      type: varchar(255)
+    birthday:
+      type: date
+    _uniques:
+      uniq_email: [ email ]
+    
+

@@ -1,0 +1,2 @@
+prod:
+  require_ssl: true

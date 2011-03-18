@@ -1,0 +1,23 @@
+methods:
+  post: [email, captcha]
+
+names:
+  email:
+    required: true
+    required_msg: メールアドレスを入力してください。
+    validators: [valid_email]
+
+  captcha:
+    required: true
+    required_msg: 画像の文字を入力してください。
+    validators: [captcha]
+
+captcha:
+  class: sfCryptoCaptchaValidator
+  param:
+    captcha_error: 画像の文字と入力内容が異なります。もう一度お試しください。
+  
+valid_email:
+  class: sfEmailValidator
+  param:
+    email_error: メールアドレスとして扱えませんでした。入力内容をご確認ください。

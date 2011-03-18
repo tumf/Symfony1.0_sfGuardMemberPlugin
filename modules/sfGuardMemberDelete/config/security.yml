@@ -1,0 +1,5 @@
+result:
+  is_secure: false
+
+prod:
+  require_ssl: true

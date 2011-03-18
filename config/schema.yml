@@ -1,0 +1,61 @@
+propel:
+  _attributes:      { package: plugins.sfGuardMemberPlugin.lib.model }
+  
+  sf_guard_user_profile:
+    _attributes: { phpName: sfGuardUserProfile }
+    id:
+    user_id:     { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+    remember:    boolean
+    email:       varchar(255)
+    mobile_email: varchar(255)
+    optin:       { type: boolean }
+    nickname:    { type: varchar(255) }
+    birthday:    { type: bu_date }
+    bloodtype:   { type: varchar(2) }
+    gender:      { type: varchar(8) }
+    zipcode:     { type: varchar(8) }
+    created_at:
+    updated_at:
+    deleted_at:   { type: timestamp }
+
+  # 新規登録時、メールアドレス到達確認
+  sf_guard_member_confirmation_request:
+    _attributes:    { phpName: sfGuardMemberConfirmationRequest }
+    id:
+    # recipient mail address
+    email:                  { type: varchar(255),    required: true,   index: unique } 
+    # hash for confirmation process
+    hash:                   { type: varchar(255),    required: true,   index: unique }
+    created_at:
+    updated_at:
+
+  # 登録情報変更時、メールアドレス到達確認
+  sf_guard_member_confirmation_request_on_edit:
+    _attributes:    { phpName: sfGuardMemberConfirmationRequestOnEdit }
+    id:
+    user_id:        { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+    email:          { type: varchar(255),    required: true }
+    hash:           { type: varchar(255),    required: true, index: unique }
+    created_at:
+    updated_at:
+
+  # パスワード再設定リクエスト
+  sf_guard_member_password_reset_request:
+    _attributes:    { phpName: sfGuardMemberPasswordResetRequest }
+    id:
+    user_id:        { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+    hash:           { type: varchar(255),    required: true, index: unique }
+    remote_host:    { type: varchar(255),    required: true }
+    # to be turned off when used
+    is_available:   { type: boolean,         required: true,      default: true }
+    created_at:
+    updated_at:
+
+  sf_guard_member_withdrawal_record:
+    _attributes:    { phpName: sfGuardMemberWithdrawalRecord }
+    id:
+    user_id:        { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true }
+    reason:         { type: longvarchar }
+    created_at:
+    updated_at:
+

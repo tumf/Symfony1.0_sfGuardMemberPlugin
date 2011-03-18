@@ -1,0 +1,22 @@
+= sfGuardMemberPlugin =
+
+== インストール ==
+
+以下のようにSubversionのリポジトリからチェックアウトしてください。
+
+{{{
+cd plugins
+svn co http://svn.tracfort.jp/svn/dino-symfony/plugins/sfGuardMemberPlugin
+cd - && symfony cc
+}}}
+
+
+
+== 使い方 ==
+
+
+== 再登録に於ける項目情報の扱い ==
+
+ * mailaddress: 再利用可能
+ * username: 再利用不可
+ * nickname: 再利用可能

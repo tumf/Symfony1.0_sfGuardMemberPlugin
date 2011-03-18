@@ -1,0 +1,68 @@
+#
+# mapping of Module and routes
+#
+mapping:
+  sfGuardMemberMailRegister: [ sf_guard_member_mail* ]
+  sfGuardMemberRegister: [ sf_guard_member_register* ]
+  sfGuardMemberEdit: [ sf_guard_member_edit* ]
+  sfGuardMemberIdRemind: [sf_guard_member_id_remind*]
+  sfGuardMemberPasswordReset: [sf_guard_member_password_reset*]
+  sfGuardMemberDelete: [ sf_guard_member_delete* ]
+
+
+routes:
+  #
+  # account registration
+  #
+  sf_guard_member_mail_register:
+    url:   /account/mail/register/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberMailRegister, action: flow, sf_pageflow_status: form, sf_pageflow_ticket: "new"}
+    
+  sf_guard_member_mail_confirm:
+    url:   /account/mail/confirm/:hash
+    param: { module: sfGuardMemberMailRegister, action: confirm }
+
+  sf_guard_member_register:
+    url:   /account/register/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberRegister, action: flow, sf_pageflow_status: form, sf_pageflow_ticket: "new"}
+
+  #
+  # account control
+  # 
+  sf_guard_member_edit:
+    url:   /account/edit/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberEdit, action: flow, sf_pageflow_status: request_auth, sf_pageflow_ticket: "new"}
+    
+  sf_guard_member_edit_email_confirm:
+    url:   /account/edit/email/confirm/:hash
+    param: { module: sfGuardMemberEdit, action: confirmEmail }
+  
+  sf_guard_member_delete_result:
+    url:   /account/delete/result/
+    param: { module: sfGuardMemberDelete, action: result }
+    
+  sf_guard_member_delete:
+    url:   /account/delete/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberDelete, action: flow, sf_pageflow_status: request_auth, sf_pageflow_ticket: "new"}
+  
+  #
+  # reminder
+  # 
+  sf_guard_member_id_remind:
+    url:   /account/id/remind/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberIdRemind, action: flow, sf_pageflow_status: form, sf_pageflow_ticket: "new"}
+
+  #
+  # password resetter
+  # 
+  sf_guard_member_password_reset:
+    url:   /account/password/reset/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberPasswordReset, action: flow, sf_pageflow_status: form, sf_pageflow_ticket: "new"}
+  
+  sf_guard_member_password_reset_request:
+    url:   /account/password/reset/request/:sf_pageflow_status/:sf_pageflow_ticket/*
+    param: { module: sfGuardMemberPasswordResetRequest, action: flow, sf_pageflow_status: form, sf_pageflow_ticket: "new"}
+
+  sf_guard_member_password_reset_request_check:
+    url:   /account/password/reset/request/check/:hash
+    param: { module: sfGuardMemberPasswordResetRequest, action: check }
