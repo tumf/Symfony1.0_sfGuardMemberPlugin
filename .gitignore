@@ -1,6 +1,6 @@
 .svn
-lib/model/om
-lib/model/map
+/lib/model/om
+/lib/model/map
 
 
 
